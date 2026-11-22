@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; img-src 'self' data: http://127.0.0.1:*; media-src 'self' http://127.0.0.1:* blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' http://127.0.0.1:*">
+  <title>torr</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-dot"></span>torr</div>
+
+    <form id="add-form" class="add-form" autocomplete="off">
+      <input id="magnet-input" type="text" spellcheck="false"
+             placeholder="magnet:?xt=urn:btih:…  ·  или путь к .torrent">
+      <button type="submit" class="btn primary">Добавить</button>
+    </form>
+
+    <button id="pick-file" class="btn">Файл…</button>
+
+    <div class="global-stats">
+      <span class="stat down" title="Скорость загрузки">↓ <b id="global-down">0 B/s</b></span>
+      <span class="stat up" title="Скорость отдачи">↑ <b id="global-up">0 B/s</b></span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <span>Торренты</span>
+        <em id="torrent-count">0</em>
+      </div>
+      <ul id="torrent-list" class="torrent-list"></ul>
+      <div class="sidebar-foot">
+        <div class="path-row">
+          <span class="path-label">Загрузки</span>
+          <button id="change-dir" class="link">изменить</button>
+        </div>
+        <div id="download-path" class="path-value">—</div>
+      </div>
+    </aside>
+
+    <main id="details" class="details"></main>
+  </div>
+
+  <div id="toasts" class="toasts"></div>
+
+  <div id="drop-zone" class="drop-zone hidden">
+    <div class="drop-inner">Отпустите .torrent файлы</div>
+  </div>
+
+  <div id="player" class="player hidden">
+    <div class="player-box">
+      <div class="player-head">
+        <span id="player-title"></span>
+        <button id="player-close" class="btn ghost" title="Закрыть">✕</button>
+      </div>
+      <video id="player-video" class="player-media hidden" controls autoplay></video>
+      <audio id="player-audio" class="player-media hidden" controls autoplay></audio>
+      <img id="player-image" class="player-media hidden" alt="">
+    </div>
+  </div>
+
+  <dialog id="remove-dialog" class="dialog">
+    <h3>Удалить торрент?</h3>
+    <p id="remove-name" class="dialog-name"></p>
+    <label class="check">
+      <input type="checkbox" id="remove-files">
+      <span>Удалить скачанные файлы с диска</span>
+    </label>
+    <div class="dialog-actions">
+      <button id="remove-cancel" class="btn ghost">Отмена</button>
+      <button id="remove-confirm" class="btn danger">Удалить</button>
+    </div>
+  </dialog>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
